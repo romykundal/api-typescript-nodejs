@@ -19,7 +19,7 @@ export default (app: Router) => {
         orderBy: Joi.string().optional().label("Sort By"),
         page: Joi.string().optional().label("Page Number"),
         limit: Joi.string().optional().label("Page Limit"),
-        searchKeyword: Joi.string().optional().label("Serach text for city name")
+        searchKeyword: Joi.string().optional().label("keyword for city name")
       })
     }),
     sorter,
