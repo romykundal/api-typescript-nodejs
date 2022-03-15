@@ -1,0 +1,12 @@
+version: '2'
+services:
+  web:
+    build: .
+    command: npm start
+    volumes:
+      - .:/home/node/app/
+      - /home/node/app/node_modules
+    ports:
+      - "3000:3000"
+    environment:
+      - MONGODB_URI=mongodb+srv://romykundal:romykundal3334@cluster0.otrsi.mongodb.net/task1?retryWrites=true&w=majority
