@@ -28,12 +28,22 @@ Then just start the server with
 npm run start
 ```
 
+# Docker is setup 
+
+run the command to run docker container:
+```
+docker-compose up
+```
+
+
+
 # Roadmap
 - [x] API Validation layer (Celebrate+Joi)
 - [ ] Unit tests examples
 - [x] The logging _'layer'_
 - [ ] Add agenda dashboard
 - [x] Continuous integration with CircleCI 😍
+- [x] The docker compose setup to run prod and developoment too
 - [ ] Deploys script and docs for AWS Elastic Beanstalk and Heroku
 - [ ] Integration test with newman 😉
 - [ ] Instructions on typescript debugging with VSCode

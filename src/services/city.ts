@@ -7,14 +7,49 @@ export default class CityService {
   ) {
   }
 
-  public getCity(keyword:any) {
-    let search = {};
-    if(keyword && keyword !=""){
-      search = {name: { $regex: '.*' + keyword + '.*' } }
+  public getCity(keyword: any) {
+    let search: any;
+    let arrayOfKeyword = [];
+    if (keyword && keyword != "") {
+
+      if (keyword.indexOf(',') > -1) {
+        arrayOfKeyword = keyword.split(',');
+        search = {
+          $match: {
+            $and: [
+              { name: { '$regex': arrayOfKeyword[0], '$options': 'i' } },
+              { state: { '$regex': arrayOfKeyword[1], '$options': 'i' } }
+            ]
+          }
+        }
+
+      } else {
+        search = {
+          $match: {
+            $or: [
+              { name: { '$regex': keyword, '$options': 'i' } },
+              { state: { '$regex': keyword, '$options': 'i' } }
+            ]
+          }
+        }
+
+      }
+
     }
-    
-    const cities = this.cityModel.find(search);
+
+    let query = [
+      search,
+      {
+        $project: {
+          _id: 1,
+          flips: '$flips',
+          name: '$name',
+          state: '$state'
+        }
+      }
+    ];
+
+    const cities = this.cityModel.aggregate(query);
     return cities;
   }
-
 }

@@ -10,7 +10,7 @@ import { IPagination, ISortation, SortationOrderTypesEnum } from "../../interfac
 const route = Router();
 
 export default (app: Router) => {
-  app.use("/cities", route);
+  app.use("/suggest", route);
 
   route.get("",
     celebrate({
@@ -19,7 +19,7 @@ export default (app: Router) => {
         orderBy: Joi.string().optional().label("Sort By"),
         page: Joi.string().optional().label("Page Number"),
         limit: Joi.string().optional().label("Page Limit"),
-        searchKeyword: Joi.string().optional().label("keyword for city name")
+        q: Joi.string().optional().label("keyword for city name")
       })
     }),
     sorter,
@@ -31,7 +31,7 @@ export default (app: Router) => {
       const paginateInstance = Container.get(PaginateClient);
       const sortFields: ISortation = req["sortParams"];
       const paginateFields: IPagination = req["pageParams"];
-      let keyword = req.query.searchKeyword;
+      let keyword = req.query.q;
       const cityDataQuery = cityService.getCity(keyword);
       const sortedCityDataQuery = sortInstance.toSort(cityDataQuery, sortFields);
       const paginatedUsersData = await paginateInstance.toPage(sortedCityDataQuery, paginateFields);
