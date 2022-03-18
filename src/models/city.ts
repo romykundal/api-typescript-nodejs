@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const City = new mongoose.Schema(
+const CitySchema = new mongoose.Schema(
   {
     fips: {
       type: String
@@ -15,4 +15,4 @@ const City = new mongoose.Schema(
   { timestamps: true }
 );
 
-export default mongoose.model('city', City);
+export default mongoose.model('city', CitySchema);

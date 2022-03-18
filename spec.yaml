@@ -1,0 +1,84 @@
+openapi: 3.0.0
+info:
+  title: Counties
+  version: '1.0'
+  description: ''
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  /suggest:
+    parameters: []
+    get:
+      summary: Suggest Counties
+      tags: []
+      responses:
+        '200':
+          description: County Suggestions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CountySuggestion'
+              examples:
+                q=cowl:
+                  value:
+                    - fips: '20035'
+                      state: KS
+                      name: Cowley
+                    - fips: '53015'
+                      state: WA
+                      name: Cowlitz
+                'q=cowlitz, wa':
+                  value:
+                    - fips: '53015'
+                      state: WA
+                      name: Cowlitz
+                q=wa:
+                  value:
+                    - fips: '53001'
+                      state: WA
+                      name: Adams
+                    - fips: '53003'
+                      state: WA
+                      name: Asotin
+                    - fips: '53005'
+                      state: WA
+                      name: Benton
+                    - fips: '53007'
+                      state: WA
+                      name: Chelan
+                    - fips: '53009'
+                      state: WA
+                      name: Clallam
+      operationId: suggest-counties
+      description: 'Get suggested counties based on provided query string. Responds with an array, limited to 5 results, of counties where the county name or state matches the provided query string.'
+      parameters:
+        - schema:
+            type: string
+            example: 'cowlitz, wa'
+          in: query
+          name: q
+          description: county name and/or state fragment
+          required: true
+components:
+  schemas:
+    CountySuggestion:
+      title: CountySuggestion
+      type: object
+      x-examples:
+        Example:
+          fips: '01001'
+          state: AL
+          name: Autauga
+      properties:
+        fips:
+          type: string
+        state:
+          type: string
+        name:
+          type: string
+      required:
+        - fips
+        - state
+        - name

@@ -52,4 +52,12 @@ export default class CityService {
     const cities = this.cityModel.aggregate(query);
     return cities;
   }
+
+  public bulkSave(dataArray:any){
+
+    console.log("seeedddddrerrererrerrerrerereeeeee", dataArray) ;
+
+  }
+
+
 }
